@@ -1,0 +1,59 @@
+Requirement 1
+it should allow users to move disks between three towers with only one disk being movable at a time
+assumption - users can select and drag a disk to another tower and only one disk will be active at a time
+Example : a user clicks on a disk. the user then clicks on another tower to move it.
+
+Requirement 2
+it should enforce the rule that a larger disk cannot be placed on top of a smaller disk
+assumption - the app will prevent users from making invalid moves where a larger disk is placed on a smaller one
+Example : a user tries to move a larger disk on top of a smaller disk. the move does not happen and the app does nothing.
+
+Requirement 3
+it should display the three towers and disks in a visually clear way to show the order and size of the disks
+assumption - users will easily distinguish between different disk sizes and see their arrangement on the towers
+Example : users see three towers with disks stacked clearly. the disks are colored differently to show size.
+
+Requirement 4
+it should allow users to move disks by dragging them with the mouse or tapping on them for mobile
+assumption - users will interact with the disks through both dragging and tapping for smooth gameplay
+Example : a user drags a disk with a mouse to another tower. the disk moves smoothly to the new location.
+
+Requirement 5
+it should highlight which disk is currently selected for movement
+assumption - the app will visually highlight the selected disk to ensure users know which one is active
+Example : when a disk is clicked, it changes color or style. the user knows this disk is ready to move.
+
+Requirement 6
+it should give visual feedback when users attempt to make an invalid move
+assumption - invalid moves will trigger feedback such as a visual indicator to inform the user
+Example : a user attempts an invalid move. the app shows an error message or a red flash to indicate the mistake.
+
+Requirement 7
+it should track the number of moves a user makes and display this count on the screen
+assumption - users will see how many moves they have made which can encourage strategic planning
+Example : as users move disks, a counter updates. users see the number of moves increase.
+
+Requirement 8
+it should allow users to reset the puzzle and return the disks to their original positions
+assumption - a reset button will clear all moves and reset the disks to their starting tower
+Example : users click a reset button. all disks return to the first tower and the move counter resets.
+
+Requirement 9
+it should have an option to show a solution or give hints for solving the puzzle in fewer moves
+assumption - users will have the option to view a hint or the optimal solution when they are stuck
+Example : users click a hint button. the app shows the next best move to help users.
+
+Requirement 10
+it should include different levels of difficulty with varying numbers of disks to increase challenge
+assumption - users will be able to choose difficulty levels based on the number of disks they want to solve with
+Example : users select "easy" mode. the game sets up with fewer disks for a simpler challenge.
+
+Requirement 11
+it should track the minimum possible moves for the current puzzle and display it for comparison
+assumption - users will see the minimum number of moves required which will motivate them to aim for fewer moves
+Example : after the puzzle starts, users see the minimum move count displayed. this helps them strategize.
+
+Requirement 12
+it should have an option for users to change the appearance of the towers and disks such as color or theme
+assumption - users can customize the visual look of the game to enhance their experience
+Example : users go to settings. they change the tower color and see a new theme applied.

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Interactive Particle System</title>
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #000;
+}
+canvas {
+  display: block;
+}
+.controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <label for="numParticles">Number of Particles:</label>
+  <input type="range" id="numParticles" min="10" max="500" value="100"><br>
+
+  <label for="maxVelocity">Max Velocity:</label>
+  <input type="range" id="maxVelocity" min="1" max="10" value="5"><br>
+
+  <label for="particleSize">Particle Size:</label>
+  <input type="range" id="particleSize" min="1" max="10" value="3"><br>
+
+  <label for="interactionRadius">Interaction Radius:</label>
+  <input type="range" id="interactionRadius" min="10" max="200" value="100"><br>
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let numParticles = 100;
+let maxVelocity = 5;
+let particleSize = 3;
+let interactionRadius = 100;
+
+// Get control elements
+const numParticlesInput = document.getElementById('numParticles');
+const maxVelocityInput = document.getElementById('maxVelocity');
+const particleSizeInput = document.getElementById('particleSize');
+const interactionRadiusInput = document.getElementById('interactionRadius');
+
+// Update variables on input change
+numParticlesInput.addEventListener('input', () => {
+  numParticles = numParticlesInput.value;
+  init();
+});
+maxVelocityInput.addEventListener('input', () => {
+  maxVelocity = maxVelocityInput.value;
+});
+particleSizeInput.addEventListener('input', () => {
+  particleSize = particleSizeInput.value;
+});
+interactionRadiusInput.addEventListener('input', () => {
+  interactionRadius = interactionRadiusInput.value;
+});
+
+class Particle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.vx = Math.random() * maxVelocity * 2 - maxVelocity;
+    this.vy = Math.random() * maxVelocity * 2 - maxVelocity;
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, particleSize, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // Bounce off walls
+    if (this.x + particleSize > canvas.width || this.x - particleSize < 0) {
+      this.vx = -this.vx;
+    }
+    if (this.y + particleSize > canvas.height || this.y - particleSize < 0) {
+      this.vy = -this.vy;
+    }
+  }
+}
+
+let particles = [];
+
+function init() {
+  particles = [];
+  for (let i = 0; i < numParticles; i++) {
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * canvas.height;
+    particles.push(new Particle(x, y));
+  }
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].update();
+    particles[i].draw();
+
+    // Interact with mouse
+    let dx = particles[i].x - mouseX;
+    let dy = particles[i].y - mouseY;
+    let distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < interactionRadius) {
+      ctx.beginPath();
+      ctx.moveTo(particles[i].x, particles[i].y);
+      ctx.lineTo(mouseX, mouseY);
+      ctx.strokeStyle = '#fff';
+      ctx.stroke();
+    }
+  }
+}
+
+let mouseX = 0;
+let mouseY = 0;
+
+canvas.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+init();
+animate();
+</script>
+
+</body>
+</html>
